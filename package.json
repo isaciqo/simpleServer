@@ -1,17 +1,20 @@
 {
-  "name": "express-crud",
+  "name": "crud-express-docker",
   "version": "1.0.0",
-  "description": "A simple Express CRUD app",
-  "main": "server.js",
+  "description": "Basic CRUD server using Express.js and Docker",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Seu Nome",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "mongoose": "^5.1.14"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.7"
   }
 }
