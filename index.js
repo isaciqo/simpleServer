@@ -9,7 +9,7 @@ const PORT = 3000;
 app.use(bodyParser.json());
 
 // MongoDB connection
-mongoose.connect('mongodb://mongo:27017/mydatabase', {
+mongoose.connect('mongodb://localhost:27017', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
