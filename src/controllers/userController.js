@@ -1,15 +1,31 @@
-const userService = require('../services/userService');
+const userOperation = require('../operation/userOperation');
 
 exports.createUser = async (req, res) => {
     // Implementação da lógica para criar um usuário
     try {
-        const userData = req.body; // Assume que os dados do usuário estão no corpo da solicitação
-        const newUser = await userService.createUser(userData);
+        const { email, name, role, senha } = req.body; // Assume que os dados do usuário estão no corpo da solicitação
+
+        const newUser = await userOperation.createUser({ email, name, role, senha });
         res.status(201).json(newUser); // Retorna o novo usuário criado com o status 201 (Created)
     } catch (error) {
         console.error('Error creating user:', error);
         res.status(500).json({ error: 'Unable to create user' }); // Retorna um erro 500 (Internal Server Error) em caso de falha
     }    
+};
+
+exports.loginUser = async (req, res) => {
+    console.log('login ')
+    const { email, senha } = req.body;
+  
+  try {
+
+    const user = await userOperation.loginUser( email, senha );
+    
+    res.json(user);
+
+  } catch (err) {
+    res.status(401).json({ message: 'Authentication failed' });
+  }
 };
 
 exports.getUserById = async (req, res) => {
