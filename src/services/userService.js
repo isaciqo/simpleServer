@@ -1,5 +1,8 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = 'your_secret_key';  // Coloque uma chave secreta forte aqui
+
 
 exports.createUser = async ({ email, name, role, senha }) => {
     // Implementação da lógica para criar um usuário
@@ -21,7 +24,7 @@ exports.loginUser = async (email, senha) => {
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(401).json({ message: 'Authentication failed' });
+            throw new Error('Authentication failed' );
         }
         return await exports.comparePassword(senha, user.senha);
         
@@ -34,6 +37,10 @@ exports.comparePassword = async (candidatePassword, storedPassword) => {
     return bcrypt.compare(candidatePassword, storedPassword);
   };
 
+exports.generateToken = async (email) => {
+    return jwt.sign({ email }, JWT_SECRET, { expiresIn: '2m' });
+};
+  
 exports.getUserById = async (userId) => {
     // Implementação da lógica para obter um usuário por ID
 };

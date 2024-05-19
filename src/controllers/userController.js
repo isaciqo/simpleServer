@@ -14,20 +14,22 @@ exports.createUser = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-    console.log('login ')
     const { email, senha } = req.body;
   
   try {
 
-    const user = await userOperation.loginUser( email, senha );
+    const token = await userOperation.loginUser( email, senha );
     
-    res.json(user);
+    res.json(token);
 
   } catch (err) {
     res.status(401).json({ message: 'Authentication failed' });
   }
 };
 
+exports.securityTest = async (req, res) => {
+    res.status(200).json({ message: 'parabens!' });
+};
 exports.getUserById = async (req, res) => {
     // Implementação da lógica para obter um usuário por ID
 };
