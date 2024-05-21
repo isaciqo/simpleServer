@@ -4,7 +4,7 @@ exports.createUser = async (req, res) => {
     // Implementação da lógica para criar um usuário
     try {
         const { email, name, role, senha } = req.body; // Assume que os dados do usuário estão no corpo da solicitação
-
+        console.log('create user', name)
         const newUser = await userOperation.createUser({ email, name, role, senha });
         res.status(201).json(newUser); // Retorna o novo usuário criado com o status 201 (Created)
     } catch (error) {
@@ -17,7 +17,7 @@ exports.loginUser = async (req, res) => {
     const { email, senha } = req.body;
   
   try {
-
+    console.log('login user', email)
     const token = await userOperation.loginUser( email, senha );
     
     res.json(token);
