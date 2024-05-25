@@ -30,6 +30,22 @@ exports.loginUser = async (req, res) => {
 exports.securityTest = async (req, res) => {
     res.status(200).json({ message: 'parabens!' });
 };
+
+exports.createCalendar = async (req, res) => {
+    // Implementação da lógica para criar um usuário
+    try {
+        const { createdBy, users, calendarInformation } = req.body; // Assume que os dados do usuário estão no corpo da solicitação
+        if (!createdBy || !users ) {
+            return res.status(400).json({ message: 'Missing required fields' });
+        }
+        console.log('create Calendar', createdBy)
+        const newCalendar = await userOperation.createCalendar({ createdBy, users, calendarInformation });
+        res.status(201).json(newCalendar); // Retorna o novo usuário criado com o status 201 (Created)
+    } catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).json({ error: 'Unable to create user' }); // Retorna um erro 500 (Internal Server Error) em caso de falha
+    }    
+};
 exports.getUserById = async (req, res) => {
     // Implementação da lógica para obter um usuário por ID
 };

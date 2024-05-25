@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const Calendar = require('../models/calendarModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'your_secret_key';  // Coloque uma chave secreta forte aqui
@@ -40,7 +41,24 @@ exports.comparePassword = async (candidatePassword, storedPassword) => {
 exports.generateToken = async (email) => {
     return jwt.sign({ email }, JWT_SECRET, { expiresIn: '2m' });
 };
-  
+
+
+exports.createCalendar = async ({ createdBy, users, calendarInformation }) => {
+    // Implementação da lógica para criar um usuário
+    try {
+        const newCalendar = new Calendar({
+            createdBy,
+            users,
+            calendarInformation
+        });
+        console.log('calendar in service', newCalendar)
+        const savedCalendar = await newCalendar.save();
+        return savedCalendar;
+    } catch (error) {
+        throw error;
+    }
+};
+
 exports.getUserById = async (userId) => {
     // Implementação da lógica para obter um usuário por ID
 };

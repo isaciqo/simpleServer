@@ -1,80 +1,34 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const userRoutes = require('./src/routes/userRoutes');
+const errorHandler = require('./src/middlewares/errorHandler')
+const cors = require('cors'); 
+
+// Middleware CORS
+
+
+
+
+
 
 const app = express();
-const PORT = 3000;
+const PORT = 3030;
 
-// Middleware
-app.use(bodyParser.json());
-
-// MongoDB connection
-mongoose.connect('mongodb://localhost:27017', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+mongoose.connect('mongodb://localhost:27017/mydataBase', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log('Connected to MongoDB');
+}).catch(err => {
+    console.error('Error connecting to MongoDB:', err);
 });
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', function() {
-  console.log('Connected to MongoDB');
-});
-
-// Data schema
-const dataSchema = new mongoose.Schema({
-  name: String,
-  description: String
-});
-const Data = mongoose.model('Data', dataSchema);
-
-// Routes CRUD
-// Create
-app.post('/data', (req, res) => {
-  const newData = new Data(req.body);
-  newData.save()
-    .then(item => {
-      res.json(item);
-    })
-    .catch(err => {
-      res.status(400).send("Unable to save to database");
-    });
-});
-
-// Read
-app.get('/data', (req, res) => {
-  Data.find({}, (err, data) => {
-    if (err) {
-      res.status(500).send("Error fetching data");
-    } else {
-      res.json(data);
-    }
-  });
-});
-
-// Update
-app.put('/data/:id', (req, res) => {
-  const id = req.params.id;
-  Data.findByIdAndUpdate(id, req.body, { new: true })
-    .then(updatedData => {
-      res.json(updatedData);
-    })
-    .catch(err => {
-      res.status(400).send("Unable to update data");
-    });
-});
-
-// Delete
-app.delete('/data/:id', (req, res) => {
-  const id = req.params.id;
-  Data.findByIdAndDelete(id)
-    .then(() => {
-      res.send('Deleted');
-    })
-    .catch(err => {
-      res.status(400).send("Unable to delete data");
-    });
-});
-
-// Start server
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
+app.use(express.json());
+app.use('/users', userRoutes);
+// Usar outras rotas aqui
+app.use(errorHandler); // Adicione o errorHandler aqui
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });

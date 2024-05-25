@@ -23,6 +23,13 @@ exports.loginUser = async (email, senha) => {
     }
 };
 
+exports.createCalendar = async ({ createdBy, users, calendarInformation }) => {
+    try {
+        return await userService.createCalendar({ createdBy, users, calendarInformation });
+      } catch (error) {
+        throw error;
+      }
+};
 
 exports.getUserById = async (userId) => {
     // Implementação da lógica para obter um usuário por ID
