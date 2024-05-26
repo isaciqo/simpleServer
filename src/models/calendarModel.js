@@ -5,7 +5,7 @@ const CalendarInformationSchema = new mongoose.Schema({
   firstDay: { type: String, required: true },
   lastDay: { type: String, required: true },
   status: { type: String, required: true }
-});
+}, { _id: false });
 
 const CalendarSchema = new mongoose.Schema({
   createdBy: { type: String, required: true },

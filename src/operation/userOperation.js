@@ -31,6 +31,47 @@ exports.createCalendar = async ({ createdBy, users, calendarInformation }) => {
       }
 };
 
+
+exports.updateSchedulesCreated = async ({ id, schedulesCreated }) => {
+  try {
+    console.log('schedulesCreated---------in operation', schedulesCreated)
+      return await userService.updateSchedulesCreated({ id, schedulesCreated });
+    } catch (error) {
+      throw error;
+    }
+};
+
+exports.updateSchedulesJoined = async ({ id, schedulesJoined }) => {
+  try {
+      return await userService.updateSchedulesJoined({ id, schedulesJoined });
+    } catch (error) {
+      throw error;
+    }
+};
+exports.updateCalendar = async ({ id, calendarInformation }) => {
+    try {
+        return await userService.updateCalendar({ id, calendarInformation });
+      } catch (error) {
+        throw error;
+      }
+};
+
+exports.listCalendar = async ({ createdBy }) => {
+  try {
+      return await userService.listCalendar({ createdBy });
+    } catch (error) {
+      throw error;
+    }
+};
+
+exports.getCalendar = async ({ id }) => {
+  try {
+      return await userService.getCalendar({ id });
+    } catch (error) {
+      throw error;
+    }
+};
+
 exports.getUserById = async (userId) => {
     // Implementação da lógica para obter um usuário por ID
 };

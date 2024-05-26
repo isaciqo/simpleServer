@@ -43,9 +43,94 @@ exports.createCalendar = async (req, res) => {
         res.status(201).json(newCalendar); // Retorna o novo usuário criado com o status 201 (Created)
     } catch (error) {
         console.error('Error creating user:', error);
-        res.status(500).json({ error: 'Unable to create user' }); // Retorna um erro 500 (Internal Server Error) em caso de falha
+        res.status(500).json({ error: 'Unable to create calendar' }); // Retorna um erro 500 (Internal Server Error) em caso de falha
     }    
 };
+
+exports.updateSchedulesCreated = async (req, res) => {
+    // Implementação da lógica para criar um usuário
+    try {
+        const { id } = req.params;
+        const { schedulesCreated } = req.body; // Assume que os dados do usuário estão no corpo da solicitação
+        if (!schedulesCreated) {
+            return res.status(400).json({ message: 'Missing schedulesCreated' });
+          }
+        console.log('updateSchedulesCreated', schedulesCreated)
+        const newUser = await userOperation.updateSchedulesCreated({ id, schedulesCreated });
+        res.status(201).json(newUser); // Retorna o novo usuário criado com o status 201 (Created)
+    } catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).json({ error }); // Retorna um erro 500 (Internal Server Error) em caso de falha
+    }    
+};
+
+exports.updateSchedulesJoined = async (req, res) => {
+    // Implementação da lógica para criar um usuário
+    try {
+        const { id } = req.params;
+        const { schedulesJoined } = req.body; // Assume que os dados do usuário estão no corpo da solicitação
+        if (!schedulesJoined) {
+            return res.status(400).json({ message: 'Missing schedulesJoined' });
+          }
+        console.log('updateSchedulesJoined', schedulesJoined)
+        const newUser = await userOperation.updateSchedulesJoined({ id, schedulesJoined });
+        res.status(201).json(newUser); // Retorna o novo usuário criado com o status 201 (Created)
+    } catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).json({ error }); // Retorna um erro 500 (Internal Server Error) em caso de falha
+    }    
+};
+exports.updateCalendar = async (req, res) => {
+    // Implementação da lógica para criar um usuário
+    try {
+        const { id } = req.params;
+        const { calendarInformation } = req.body; // Assume que os dados do usuário estão no corpo da solicitação
+        if (!calendarInformation) {
+            return res.status(400).json({ message: 'Missing calendarInformation' });
+          }
+        console.log('create Calendar', id)
+        const newCalendar = await userOperation.updateCalendar({ id, calendarInformation });
+        res.status(201).json(newCalendar); // Retorna o novo usuário criado com o status 201 (Created)
+    } catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).json({ error }); // Retorna um erro 500 (Internal Server Error) em caso de falha
+    }    
+};
+
+exports.listCalendar = async (req, res) => {
+    // Implementação da lógica para criar um usuário
+    try {
+        const { createdBy } = req.params;
+
+        if (!createdBy) {
+            return res.status(400).json({ message: 'Missing createdBy' });
+          }
+        console.log('create Calendar', createdBy)
+        const calendars = await userOperation.listCalendar({ createdBy });
+        res.status(201).json(calendars); // Retorna o novo usuário criado com o status 201 (Created)
+    } catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).json({ error: error.message }); // Retorna um erro 500 (Internal Server Error) em caso de falha
+    }    
+};
+
+exports.getCalendar = async (req, res) => {
+    // Implementação da lógica para criar um usuário
+    try {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ message: 'Missing id' });
+          }
+        console.log('create Calendar', id)
+        const calendars = await userOperation.getCalendar({ id });
+        res.status(201).json(calendars); // Retorna o novo usuário criado com o status 201 (Created)
+    } catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).json({ error: error.message }); // Retorna um erro 500 (Internal Server Error) em caso de falha
+    }    
+};
+
 exports.getUserById = async (req, res) => {
     // Implementação da lógica para obter um usuário por ID
 };
