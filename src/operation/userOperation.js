@@ -11,11 +11,13 @@ exports.createUser = async ({ email, name, role, senha }) => {
 
 exports.loginUser = async (email, senha) => {
     try {
-        const isloged = await userService.loginUser(email, senha);
-        if(!isloged){
+        const response = await userService.loginUser(email, senha);
+        if(!response.token){
             throw new Error('Authentication failed')
         }
-        return userService.generateToken(email);
+        
+        response.token = await userService.generateToken(email);
+        return response
 
     } catch (error) {
         console.log('error', error)

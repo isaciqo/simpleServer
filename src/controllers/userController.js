@@ -19,7 +19,7 @@ exports.loginUser = async (req, res) => {
   try {
     console.log('login user', email)
     const token = await userOperation.loginUser( email, senha );
-    
+    console.log('returned User in controler------', token)
     res.json(token);
 
   } catch (err) {
@@ -88,7 +88,7 @@ exports.updateCalendar = async (req, res) => {
         if (!calendarInformation) {
             return res.status(400).json({ message: 'Missing calendarInformation' });
           }
-        console.log('create Calendar', id)
+        console.log('calendarInformation----------', calendarInformation)
         const newCalendar = await userOperation.updateCalendar({ id, calendarInformation });
         res.status(201).json(newCalendar); // Retorna o novo usuário criado com o status 201 (Created)
     } catch (error) {

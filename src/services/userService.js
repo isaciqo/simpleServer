@@ -3,12 +3,12 @@ const Calendar = require('../models/calendarModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'your_secret_key';  // Coloque uma chave secreta forte aqui
-
+const { v4: uuidv4 } = require('uuid');
 
 exports.createUser = async ({ email, name, role, senha }) => {
     // Implementação da lógica para criar um usuário
     try {
-        const newUser = new User({ email, name, role, senha });
+        const newUser = new User({ user_id: uuidv4(), email, name, role, senha });
         const savedUser = await newUser.save();
         return savedUser;
     } catch (error) {
@@ -27,8 +27,18 @@ exports.loginUser = async (email, senha) => {
         if (!user) {
             throw new Error('Authentication failed' );
         }
-        return await exports.comparePassword(senha, user.senha);
-        
+        const token = await exports.comparePassword(senha, user.senha);
+        console.log('returned User------', user)
+
+        const response = {
+            token, 
+            user_id: user.user_id,
+            schedulesCreated: user.schedulesCreated,
+            schedulesJoined: user.schedulesJoined
+        }
+
+        console.log('returned response------', response)
+        return response
     } catch (error) {
         throw error;
     }
@@ -77,14 +87,24 @@ exports.updateSchedulesJoined = async ({ id, schedulesJoined }) => {
     }
 };
 
-exports.createCalendar = async ({ createdBy, users, calendarInformation }) => {
+exports.createCalendar = async ({ createdBy, users, calendarInformation, name, description }) => {
     // Implementação da lógica para criar um usuário
     try {
+        const user = await User.findOne({user_id: createdBy});        
+        if (!user) {
+            throw new Error('User not found' );
+        }
+        
         const newCalendar = new Calendar({
+            calendar_id: uuidv4(),
             createdBy,
             users,
-            calendarInformation
+            calendarInformation,
+            name, 
+            description
         });
+        user.schedulesCreated.push(newCalendar.calendar_id)
+        await user.save();
         console.log('calendar in service createCalendar', newCalendar)
         const savedCalendar = await newCalendar.save();
         return savedCalendar;
@@ -95,13 +115,16 @@ exports.createCalendar = async ({ createdBy, users, calendarInformation }) => {
 
 exports.updateCalendar = async ({ id, calendarInformation }) => {
     try {
-        const calendar = await Calendar.findById(id);        
+        const calendar = await Calendar.findOne({calendar_id: id});        
 
         if (!calendar) {
             throw new Error('Calendar not found' );
         }
-        calendarInformation.map((calendarOption) => calendar.calendarInformation.push(calendarOption) )
         
+        const newInformation = calendarInformation[0]
+        console.log('newInformation -------------', newInformation)
+        calendar.calendarInformation.push(newInformation)
+        console.log('calendar -------------', calendar)
         const updatedCalendar = await calendar.save();
 
         return updatedCalendar;
@@ -127,7 +150,7 @@ exports.listCalendar = async ({ createdBy }) => {
 
 exports.getCalendar = async ({ id }) => {
     try {
-        const calendar = await Calendar.findById(id);        
+        const calendar = await Calendar.findOne({calendar_id: id});        
 
         if (!calendar) {
             throw new Error('Calendar not found' );
