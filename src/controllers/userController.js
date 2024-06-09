@@ -34,12 +34,12 @@ exports.securityTest = async (req, res) => {
 exports.createCalendar = async (req, res) => {
     // Implementação da lógica para criar um usuário
     try {
-        const { createdBy, users, calendarInformation } = req.body; // Assume que os dados do usuário estão no corpo da solicitação
+        const { createdBy, users, calendarInformation, name, description } = req.body; // Assume que os dados do usuário estão no corpo da solicitação
         if (!createdBy || !users ) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
         console.log('create Calendar', createdBy)
-        const newCalendar = await userOperation.createCalendar({ createdBy, users, calendarInformation });
+        const newCalendar = await userOperation.createCalendar({ createdBy, users, calendarInformation, name, description });
         res.status(201).json(newCalendar); // Retorna o novo usuário criado com o status 201 (Created)
     } catch (error) {
         console.error('Error creating user:', error);

@@ -25,9 +25,9 @@ exports.loginUser = async (email, senha) => {
     }
 };
 
-exports.createCalendar = async ({ createdBy, users, calendarInformation }) => {
+exports.createCalendar = async ({ createdBy, users, calendarInformation, name, description }) => {
     try {
-        return await userService.createCalendar({ createdBy, users, calendarInformation });
+        return await userService.createCalendar({ createdBy, users, calendarInformation, name, description });
       } catch (error) {
         throw error;
       }

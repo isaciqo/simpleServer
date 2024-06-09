@@ -103,7 +103,13 @@ exports.createCalendar = async ({ createdBy, users, calendarInformation, name, d
             name, 
             description
         });
-        user.schedulesCreated.push(newCalendar.calendar_id)
+
+        const schedulesInformation = {
+            calendar_id: newCalendar.calendar_id,
+            name, 
+            description
+        }
+        user.schedulesCreated.push(schedulesInformation)
         await user.save();
         console.log('calendar in service createCalendar', newCalendar)
         const savedCalendar = await newCalendar.save();
