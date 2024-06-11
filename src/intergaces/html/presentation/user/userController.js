@@ -1,4 +1,4 @@
-const userOperation = require('../operation/userOperation');
+const userOperation = require('../../../../app/operation/user/userOperation');
 
 exports.createUser = async (req, res) => {
     // Implementação da lógica para criar um usuário

@@ -1,5 +1,5 @@
-const User = require('../models/userModel');
-const Calendar = require('../models/calendarModel');
+const User = require('../../../database/models/user/userModel');
+const Calendar = require('../../../database/models/calendar/calendarModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'your_secret_key';  // Coloque uma chave secreta forte aqui

@@ -7,13 +7,6 @@ const PORT = 3000;
 // Middleware para processar o corpo das requisições como JSON
 app.use(bodyParser.json());
 
-// Simulação de uma lista de usuários
-let users = [
-    { id: 1, name: 'Usuário 1' },
-    { id: 2, name: 'Usuário 2' },
-    { id: 3, name: 'Usuário 3' }
-];
-
 // Endpoint para obter todos os usuários
 app.get('/users', (req, res) => {
     res.json(users);
