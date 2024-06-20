@@ -1,13 +1,44 @@
 const userService = require('../../services/user/userService');
+const sendEmailService = require('../../services/user/sendEmailService');
 
 exports.createUser = async ({ email, name, role, senha }) => {
     try {
       const hashedPassword = await userService.hashPassword(senha);
+
+      await sendEmailService.sendMail({ email, name, role, senha })
       return await userService.createUser({ email, name, role, senha: hashedPassword });
     } catch (error) {
       throw error;
     }
 };
+exports.confirmEmail = async ({ token }) => {
+  try {
+
+    return await userService.confirmEmail({ token });
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.requestReset = async ({ email }) => {
+  try {
+
+    return await userService.requestReset({ email });
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.confirmReset = async ({ token, senha }) => {
+  try {
+    console.log('senha----------', senha)
+    const hashedPassword = await userService.hashPassword(senha);
+    await userService.confirmReset({ token, senha: hashedPassword });
+  } catch (error) {
+    throw error;
+  }
+};
+
 
 exports.loginUser = async (email, senha) => {
     try {

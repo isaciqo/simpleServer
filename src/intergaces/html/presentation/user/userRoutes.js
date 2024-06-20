@@ -10,7 +10,10 @@ const {
   securityTest,
   listCalendar,
   getCalendar,
-  deleteUser
+  deleteUser,
+  confirmEmail,
+  requestReset,
+  confirmReset
 } = require('./userController');
 
 const userRoutes = [
@@ -20,6 +23,21 @@ const userRoutes = [
     handler: createUser
   },
   {
+    method: 'get',
+    path: '/confirm/:token',
+    handler: confirmEmail
+  },
+  {
+    method: 'post',
+    path: '/requestReset/:email',
+    handler: requestReset
+  },
+  {
+    method: 'post',
+    path: '/confirmReset/:token',
+    handler: confirmReset
+  },
+  {
     method: 'post',
     path: '/login',
     handler: loginUser
@@ -27,25 +45,21 @@ const userRoutes = [
   {
     method: 'post',
     path: '/createCalendar',
-    middlewares: [authMiddleware],
     handler: createCalendar
   },
   {
     method: 'put',
     path: '/updateCalendar/:id',
-    middlewares: [authMiddleware],
     handler: updateCalendar
   },
   {
     method: 'put',
     path: '/updateSchedulesCreated/:id',
-    middlewares: [authMiddleware],
     handler: updateSchedulesCreated
   },
   {
     method: 'put',
     path: '/updateSchedulesJoined/:id',
-    middlewares: [authMiddleware],
     handler: updateSchedulesJoined
   },
   {
@@ -53,23 +67,21 @@ const userRoutes = [
     path: '/securityTest',
     middlewares: [authMiddleware],
     handler: securityTest
+    // handler: loginUser
   },
   {
     method: 'get',
     path: '/listCalendar/:createdBy',
-    middlewares: [authMiddleware],
     handler: listCalendar
   },
   {
     method: 'get',
     path: '/calendar/:id',
-    middlewares: [authMiddleware],
     handler: getCalendar
   },
   {
     method: 'delete',
     path: '/:id',
-    middlewares: [authMiddleware],
     handler: deleteUser
   }
 ];

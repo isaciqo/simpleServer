@@ -1,16 +1,42 @@
 const userOperation = require('../../../../app/operation/user/userOperation');
+require('dotenv').config();
 
 exports.createUser = async (req, res) => {
     // Implementação da lógica para criar um usuário
     try {
+        console.log('create user', req.body)
         const { email, name, role, senha } = req.body; // Assume que os dados do usuário estão no corpo da solicitação
-        console.log('create user', name)
+        
         const newUser = await userOperation.createUser({ email, name, role, senha });
         res.status(201).json(newUser); // Retorna o novo usuário criado com o status 201 (Created)
     } catch (error) {
         console.error('Error creating user:', error);
         res.status(500).json({ error: 'Unable to create user' }); // Retorna um erro 500 (Internal Server Error) em caso de falha
     }    
+};
+
+exports.confirmEmail = async (req, res) => {
+    const { token } = req.params;
+    await userOperation.confirmEmail({ token });
+
+
+
+    
+    res.status(200).send('Email confirmed and user created');
+};
+
+exports.requestReset = async (req, res) => {
+    const { email } = req.params;
+    await userOperation.requestReset({ email });
+
+    res.status(200).send('Email reset created');
+};
+exports.confirmReset = async (req, res) => {
+    const { token } = req.params;
+    const { senha } = req.body;
+    await userOperation.confirmReset({ token, senha });
+
+    res.status(200).send('senhas reseted');
 };
 
 exports.loginUser = async (req, res) => {
@@ -23,11 +49,13 @@ exports.loginUser = async (req, res) => {
     res.json(token);
 
   } catch (err) {
-    res.status(401).json({ message: 'Authentication failed' });
+    console.log('err------', err)
+    res.status(401).json({ message: err.message });
   }
 };
 
 exports.securityTest = async (req, res) => {
+    console.log('teste de segurança')
     res.status(200).json({ message: 'parabens!' });
 };
 

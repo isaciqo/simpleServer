@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
   senha: String,
   schedulesCreated: { type: [schedulesInformationSchema], required: true },
   schedulesJoined: { type: [schedulesInformationSchema], required: true },
+  isConfirmed: Boolean
 }); // Remove o campo _id padrão
 
 const User = mongoose.model('User', userSchema);

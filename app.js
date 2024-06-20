@@ -15,18 +15,13 @@ mongoose.connect('mongodb://localhost:27017/mydataBase', {
 }).catch(err => {
     console.error('Error connecting to MongoDB:', err);
 });
-
-// Registrar rotas
-routerRegister(app);
-
-// app.use(cors({
-//     origin: 'http://localhost:3000'
-// }));
-app.use(cors())
 app.use(express.json());
-// app.use('/users', userRoutes);
-// Usar outras rotas aqui
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
+routerRegister(app);
 app.use(errorHandler); // Adicione o errorHandler aqui
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
