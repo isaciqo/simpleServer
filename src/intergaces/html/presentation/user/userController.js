@@ -1,17 +1,16 @@
 const userOperation = require('../../../../app/operation/user/userOperation');
+const createUserOperation = require('../../../../app/operation/user/userOperation');
 require('dotenv').config();
 
 exports.createUser = async (req, res) => {
-    // Implementação da lógica para criar um usuário
     try {
-        console.log('create user', req.body)
-        const { email, name, role, senha } = req.body; // Assume que os dados do usuário estão no corpo da solicitação
+        const { email, name, role, senha } = req.body;
         
-        const newUser = await userOperation.createUser({ email, name, role, senha });
-        res.status(201).json(newUser); // Retorna o novo usuário criado com o status 201 (Created)
+        const newUser = await createUserOperation.createUser({ email, name, role, senha });
+        res.status(201).json(newUser); 
     } catch (error) {
         console.error('Error creating user:', error);
-        res.status(500).json({ error: 'Unable to create user' }); // Retorna um erro 500 (Internal Server Error) em caso de falha
+        res.status(500).json({ error: 'Unable to create user' }); 
     }    
 };
 

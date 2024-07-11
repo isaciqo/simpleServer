@@ -4,7 +4,7 @@ const sendEmailService = require('../../services/user/sendEmailService');
 exports.createUser = async ({ email, name, role, senha }) => {
     try {
       const hashedPassword = await userService.hashPassword(senha);
-
+        console.log('hashedPassword', hashedPassword)
       await sendEmailService.sendMail({ email, name, role, senha })
       return await userService.createUser({ email, name, role, senha: hashedPassword });
     } catch (error) {
@@ -42,7 +42,8 @@ exports.confirmReset = async ({ token, senha }) => {
 
 exports.loginUser = async (email, senha) => {
     try {
-        const response = await userService.loginUser(email, senha);
+        const hashedPassword = await userService.hashPassword(senha);
+        const response = await userService.loginUser(email, hashedPassword);
         if(!response.token){
             throw new Error('Authentication failed')
         }

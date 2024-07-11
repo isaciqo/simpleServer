@@ -1,5 +1,5 @@
-// routes/userRoutes.js
 const authMiddleware = require('../../middlewares/auth.js');
+
 const {
   createUser,
   loginUser,

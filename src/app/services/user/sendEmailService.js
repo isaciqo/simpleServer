@@ -21,7 +21,7 @@ exports.sendMail = async ({ email, senha }) => {
         subject: 'Email Confirmation',
         text: `Click on the following link to confirm your email: http://localhost:3030/confirm/${token}`
         };
-
+        console.log("email mailOptions.text ---------------", mailOptions.text)
         await transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             return console.log('Erro ao enviar e-mail:', error);

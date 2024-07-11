@@ -1,6 +1,8 @@
 const User = require('../../../database/models/user/userModel');
 const Calendar = require('../../../database/models/calendar/calendarModel');
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const nodemailer = require('nodemailer');
@@ -94,8 +96,9 @@ exports.requestReset = async ({ email }) => {
 
 
 exports.hashPassword = async (password) => {
-    const salt = await bcrypt.genSalt(10);
-    return bcrypt.hash(password, salt);
+    return crypto.createHash('sha256').update(password).digest('hex');
+    //const salt = await bcrypt.genSalt(10);
+    //return bcrypt.hash(password, salt);
 };
 
 exports.loginUser = async (email, senha) => {
@@ -108,6 +111,8 @@ exports.loginUser = async (email, senha) => {
         if (!user.isConfirmed) {
             throw new Error('conta ainda não confirmada' );
         }
+        console.log('senha------', senha)
+        
         const token = await exports.comparePassword(senha, user.senha);
         
 
@@ -126,7 +131,7 @@ exports.loginUser = async (email, senha) => {
 };
 
 exports.comparePassword = async (candidatePassword, storedPassword) => {
-    return bcrypt.compare(candidatePassword, storedPassword);
+    return candidatePassword === storedPassword
   };
 
 exports.generateToken = async (email) => {
