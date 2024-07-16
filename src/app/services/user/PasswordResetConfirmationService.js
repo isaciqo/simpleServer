@@ -3,13 +3,14 @@ const User = require('../../../database/models/user/userModel');
 
 class PasswordResetConfirmation {
     constructor(jwtSecret) {
-        this.JWT_SECRET = jwtSecret;
+        this.JWT_SECRET = process.env.JWT_SECRET;
     }
 
     async confirmReset({ token, senha }) {
         return new Promise((resolve, reject) => {
             jwt.verify(token, this.JWT_SECRET, async (error, decoded) => {
                 if (error) {
+                    console.log('error--------------------------',error)
                     reject(new Error('Invalid or expired token'));
                     return;
                 }

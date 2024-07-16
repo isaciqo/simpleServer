@@ -20,7 +20,7 @@ class EmailService {
 
       const mailOptions = {
         from: process.env.EMAIL_USER,
-        to: 'isaciqo.42@gmail.com', // Consider making this dynamic
+        to: 'isaciqo.423@gmail.com', // Consider making this dynamic
         subject: 'Email Confirmation',
         text: `Click on the following link to confirm your email: http://localhost:3030/confirm/${token}`
       };

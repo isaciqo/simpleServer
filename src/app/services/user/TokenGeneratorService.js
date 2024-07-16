@@ -7,7 +7,7 @@ class TokenGenerator {
     }
     
     async generateToken(email) {
-        return jwt.sign({ email }, this.JWT_SECRET, { expiresIn: '2m' });
+        return jwt.sign({ email }, this.JWT_SECRET, { expiresIn: '60m' });
     }
 }
 
