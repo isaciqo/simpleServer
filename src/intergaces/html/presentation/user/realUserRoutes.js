@@ -24,4 +24,4 @@ module.exports = [
       path: '/login',
       handler: 'realUserController.loginUser'
     }
-  ];
+];

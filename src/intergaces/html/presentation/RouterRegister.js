@@ -1,4 +1,5 @@
 const realUserRoutes = require('./user/realUserRoutes');
+const calendarRoutes = require('./calendar/CalendarRoutes');
 
 const registerRoutes = (app, routes, container) => {
     routes.forEach(route => {
@@ -15,6 +16,7 @@ const registerRoutes = (app, routes, container) => {
 
 const routerRegister = (app, container) => {
   registerRoutes(app, realUserRoutes, container);
+  registerRoutes(app, calendarRoutes, container);
 };
 
 module.exports = routerRegister;

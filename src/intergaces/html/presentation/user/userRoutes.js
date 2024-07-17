@@ -17,31 +17,31 @@ const {
 } = require('./userController');
 
 const userRoutes = [
-  {
-    method: 'post',
-    path: '/create',
-    handler: createUser
-  },
-  {
-    method: 'get',
-    path: '/confirm/:token',
-    handler: confirmEmail
-  },
-  {
-    method: 'post',
-    path: '/requestReset/:email',
-    handler: requestReset
-  },
-  {
-    method: 'post',
-    path: '/confirmReset/:token',
-    handler: confirmReset
-  },
-  {
-    method: 'post',
-    path: '/login',
-    handler: loginUser
-  },
+//  {
+//    method: 'post',
+//    path: '/create',
+//    handler: createUser
+//  },
+//  {
+//    method: 'get',
+//    path: '/confirm/:token',
+//    handler: confirmEmail
+//  },
+//  {
+//    method: 'post',
+//    path: '/requestReset/:email',
+//    handler: requestReset
+//  },
+//  {
+//    method: 'post',
+//    path: '/confirmReset/:token',
+//    handler: confirmReset
+//  },
+//  {
+//    method: 'post',
+//    path: '/login',
+//    handler: loginUser
+//  },
   {
     method: 'post',
     path: '/createCalendar',

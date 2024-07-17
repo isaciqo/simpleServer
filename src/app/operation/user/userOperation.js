@@ -68,7 +68,6 @@ exports.createCalendar = async ({ createdBy, users, calendarInformation, name, d
 
 exports.updateSchedulesCreated = async ({ id, schedulesCreated }) => {
   try {
-    console.log('schedulesCreated---------in operation', schedulesCreated)
       return await userService.updateSchedulesCreated({ id, schedulesCreated });
     } catch (error) {
       throw error;
@@ -92,7 +91,7 @@ exports.updateCalendar = async ({ id, calendarInformation }) => {
 
 exports.listCalendar = async ({ createdBy }) => {
   try {
-      return await userService.listCalendar({ createdBy });
+      return await userService.listCalendar({ createdBy: createdBy });
     } catch (error) {
       throw error;
     }
