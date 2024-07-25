@@ -1,8 +1,13 @@
+const userSchema  = require('./userSchemas')();
+
 module.exports = [
     {
       method: 'post',
       path: '/create',
-      handler: 'userController.createUser'
+      handler: 'userController.createUser',
+      validation: {
+        body: userSchema.create
+      }
     },
     {
       method: 'get',
