@@ -1,4 +1,4 @@
-const realUserRoutes = require('./user/realUserRoutes');
+const userRoutes = require('./user/UserRoutes');
 const calendarRoutes = require('./calendar/CalendarRoutes');
 
 const registerRoutes = (app, routes, container) => {
@@ -9,13 +9,11 @@ const registerRoutes = (app, routes, container) => {
         app[route.method](route.path, (req, res) => {
           controller[methodName](req, res);
         });
-    
-        console.log(`Registered route: ${route.method.toUpperCase()} ${route.path}`);
       });
 };
 
 const routerRegister = (app, container) => {
-  registerRoutes(app, realUserRoutes, container);
+  registerRoutes(app, userRoutes, container);
   registerRoutes(app, calendarRoutes, container);
 };
 

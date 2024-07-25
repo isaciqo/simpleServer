@@ -22,8 +22,8 @@ app.use(scopePerRequest(container));
 app.use(cors({
     origin: 'http://localhost:3000'
 }));
-routerRegister(app);
-app.use(errorHandler); // Adicione o errorHandler aqui
+routerRegister(app, container);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
