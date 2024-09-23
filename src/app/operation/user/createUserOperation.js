@@ -9,7 +9,7 @@ class UserOperation {
       try {
         const hashedPassword = await this.hashPasswordService.hashPassword(senha);
   
-        await this.sendEmailService.sendMail({ email, name, role, senha });
+        // this.sendEmailService.sendMail({ email, name, role, senha });
         
         return await this.createUserService.createUser({ 
           email, 

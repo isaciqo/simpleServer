@@ -2,7 +2,6 @@ const validateContract = (validation, stripUnknown = true) =>
             (req, res, next) => {
                 try {
                     const schemaOptions = { abortEarly: false, convert: false, allowUnknown: true, stripUnknown };
-                    const test = typeof validation
                     Object.keys(validation).forEach((validationKey) => {
                         const { error, value } = validation[validationKey].validate(req[validationKey], schemaOptions);
 

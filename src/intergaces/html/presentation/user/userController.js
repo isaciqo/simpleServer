@@ -11,6 +11,7 @@ class UserController {
 
     async createUser(req, res) {
         try {
+            console.log("Create User ---- ")
             const { email, name, role, senha } = req.body;
             const newUser = await this.createUserOperation.createUser({ email, name, role, senha });
             res.status(201).json(newUser);

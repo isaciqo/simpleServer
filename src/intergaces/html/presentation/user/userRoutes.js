@@ -27,6 +27,9 @@ module.exports = [
     {
       method: 'post',
       path: '/login',
-      handler: 'userController.loginUser'
+      handler: 'userController.loginUser',
+      validation: {
+        body: userSchema.login
+      }
     }
 ];

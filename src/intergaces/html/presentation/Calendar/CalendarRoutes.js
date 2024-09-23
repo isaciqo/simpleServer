@@ -1,8 +1,13 @@
+const calendarSchema  = require('./CalendarSchemas')();
+
 module.exports = [
     {
       method: 'post',
       path: '/createCalendar',
-      handler: 'calendarController.createCalendar'
+      handler: 'calendarController.createCalendar',
+      validation: {
+        body: calendarSchema.create
+      }
     },
     {
       method: 'put',
@@ -12,12 +17,18 @@ module.exports = [
     {
       method: 'put',
       path: '/updateSchedulesCreated/:id',
-      handler: 'calendarController.updateSchedulesCreated'
+      handler: 'calendarController.updateSchedulesCreated',
+      validation: {
+        body: calendarSchema.updateSchedulesCreated
+      }
     },
     {
       method: 'put',
       path: '/updateSchedulesJoined/:id',
-      handler: 'calendarController.updateSchedulesJoined'
+      handler: 'calendarController.updateSchedulesJoined',
+      validation: {
+        body: calendarSchema.updateSchedulesJoined
+      }
     },
     {
       method: 'get',

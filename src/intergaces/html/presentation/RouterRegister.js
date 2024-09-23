@@ -6,6 +6,7 @@ const registerRoutes = (app, routes, container) => {
     routes.forEach(route => {
         const [controllerName, methodName] = route.handler.split('.');
         const controller = container.resolve(controllerName);
+        
         const validateContract = validationMiddleware(route.validation);
 
         app[route.method](route.path, validateContract, (req, res) => {
