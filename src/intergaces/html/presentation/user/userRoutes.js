@@ -1,3 +1,5 @@
+const { header } = require('express-validator');
+
 const userSchema  = require('./userSchemas')();
 
 module.exports = [
@@ -30,6 +32,14 @@ module.exports = [
       handler: 'userController.loginUser',
       validation: {
         body: userSchema.login
+      }
+    },
+    {
+      method: 'get',
+      path: '/user/:user_id',
+      handler: 'userController.getUser',
+      validation: {
+        params: userSchema.getUser
       }
     }
 ];

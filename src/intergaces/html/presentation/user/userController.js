@@ -1,12 +1,19 @@
 require('dotenv').config();
 
 class UserController {
-    constructor({ createUserOperation, loginOperation, emailConfirmationOperation, requestResetOperation, passwordResetConfirmationOperation }) {
+    constructor({ createUserOperation, 
+        loginOperation, 
+        emailConfirmationOperation, 
+        requestResetOperation, 
+        passwordResetConfirmationOperation, 
+        getUserOperation 
+    }) {
         this.createUserOperation = createUserOperation;
         this.loginOperation = loginOperation;
         this.emailConfirmationOperation = emailConfirmationOperation;
         this.requestResetOperation = requestResetOperation;
         this.passwordResetConfirmationOperation = passwordResetConfirmationOperation;
+        this.getUserOperation = getUserOperation
     }
 
     async createUser(req, res) {
@@ -46,6 +53,18 @@ class UserController {
         try {
             const token = await this.loginOperation.loginUser( email, senha );
             res.json(token);
+        } catch (err) {
+            console.log('err------', err)
+            res.status(401).json({ message: err.message });
+        }
+    }
+
+    async getUser(req, res) {
+        const { user_id} = req.params;
+      
+        try {
+            const user = await this.getUserOperation.getUser( user_id );
+            res.json(user);
         } catch (err) {
             console.log('err------', err)
             res.status(401).json({ message: err.message });

@@ -3,6 +3,7 @@ const validateContract = (validation, stripUnknown = true) =>
                 try {
                     const schemaOptions = { abortEarly: false, convert: false, allowUnknown: true, stripUnknown };
                     Object.keys(validation).forEach((validationKey) => {
+                        console.log('req-------------------', req)
                         const { error, value } = validation[validationKey].validate(req[validationKey], schemaOptions);
 
                         if (error) {

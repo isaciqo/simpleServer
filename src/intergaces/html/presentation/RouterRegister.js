@@ -1,5 +1,5 @@
 const userRoutes = require('./user/UserRoutes');
-const calendarRoutes = require('./calendar/CalendarRoutes');
+const calendarRoutes = require('./Calendar/CalendarRoutes');
 const validationMiddleware = require('../middlewares/validationMiddleware');
 
 const registerRoutes = (app, routes, container) => {
