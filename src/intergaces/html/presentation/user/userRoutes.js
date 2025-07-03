@@ -14,17 +14,42 @@ module.exports = [
     {
       method: 'get',
       path: '/confirm/:token',
-      handler: 'userController.confirmEmail'
+      handler: 'userController.confirmEmail',
+      validation: {
+        params: userSchema.confirmEmail
+      }      
+    },
+    {
+      method: 'patch',
+      path: '/updateUser/',
+      handler: 'userController.updateUser',
+      validation: {
+        body: userSchema.updateUser
+      }      
+    },
+    {
+      method: 'patch',
+      path: '/changePassword/',
+      handler: 'userController.changePassword',
+      validation: {
+        body: userSchema.changePassword
+      }      
     },
     {
       method: 'post',
       path: '/requestReset/:email',
-      handler: 'userController.requestReset'
+      handler: 'userController.requestReset',
+      validation: {
+        params: userSchema.requestReset
+      } 
     },
     {
       method: 'post',
       path: '/confirmReset/:token',
-      handler: 'userController.confirmReset'
+      handler: 'userController.confirmReset',
+      validation: {
+        body: userSchema.confirmReset
+      } 
     },
     {
       method: 'post',

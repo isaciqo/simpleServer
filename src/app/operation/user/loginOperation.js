@@ -5,9 +5,9 @@ class LoginOperation {
         this.tokenGeneratorService = tokenGeneratorService;
     }
 
-    async loginUser(email, senha) {
+    async loginUser(email, password) {
         try {
-            const hashedPassword = await this.hashPasswordService.hashPassword(senha);
+            const hashedPassword = await this.hashPasswordService.hashPassword(password);
             const response = await this.validateLoginService.validateUser(email, hashedPassword);
             
             response.token = await this.tokenGeneratorService.generateToken(email);

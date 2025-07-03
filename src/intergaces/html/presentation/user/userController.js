@@ -6,25 +6,31 @@ class UserController {
         emailConfirmationOperation, 
         requestResetOperation, 
         passwordResetConfirmationOperation, 
-        getUserOperation 
+        getUserOperation,
+        updateUserOperation,
+        changePasswordOperation
     }) {
         this.createUserOperation = createUserOperation;
         this.loginOperation = loginOperation;
         this.emailConfirmationOperation = emailConfirmationOperation;
         this.requestResetOperation = requestResetOperation;
         this.passwordResetConfirmationOperation = passwordResetConfirmationOperation;
-        this.getUserOperation = getUserOperation
+        this.getUserOperation = getUserOperation;
+        this.updateUserOperation = updateUserOperation;
+        this.changePasswordOperation = changePasswordOperation
     }
 
     async createUser(req, res) {
         try {
             console.log("Create User ---- ")
-            const { email, name, role, senha } = req.body;
-            const newUser = await this.createUserOperation.createUser({ email, name, role, senha });
+            const { email, name, nick_name, password,  } = req.body;
+            const newUser = await this.createUserOperation.createUser({ email, name, nick_name, password });
             res.status(201).json(newUser);
         } catch (error) {
             console.error('Error creating user:', error);
-            res.status(500).json({ error: 'Unable to create user' });
+            res.status(400).json({
+                message: error.message // "Email já usado"
+            })
         }
     }
 
@@ -34,24 +40,57 @@ class UserController {
         res.status(200).send('Email confirmed and user created');
     }
 
+    async updateUser(req, res) {
+        try {
+            const { email, name, nick_name } = req.body;
+            await this.updateUserOperation.updateUser({ email, name, nick_name });
+            res.status(200).send('User updated');
+        } catch (error){
+            console.error('Error creating user:', error);
+            res.status(404).json({
+                message: error.message // "Email já usado"
+            })
+        }
+    }
+
+    async changePassword(req, res) {
+        try {
+            const { oldPassword, newPassword, email } = req.body;
+            await this.changePasswordOperation.changePassword({ oldPassword, newPassword, email });
+            res.status(200).send('User updated');
+        } catch (error){
+            console.error('Error creating user:', error);
+            res.status(404).json({
+                message: error.message // "Email já usado"
+            })
+        }
+    }
+
     async requestReset(req, res) {
-        const { email } = req.params;
-        await this.requestResetOperation.requestReset({ email });
-        res.status(200).send('Email reset created');
+        try {
+            const { email } = req.params;
+            await this.requestResetOperation.requestReset({ email });
+            res.status(200).send('Email reset created');
+        } catch (error){
+            console.error('Error creating user:', error);
+            res.status(404).json({
+                message: error.message // "Email já usado"
+            })
+        }
     }
 
     async confirmReset(req, res) {
         const { token } = req.params;
-        const { senha } = req.body;
-        await this.passwordResetConfirmationOperation.confirmReset({ token, senha });
-        res.status(200).send('senhas reseted');
+        const { password } = req.body;
+        await this.passwordResetConfirmationOperation.confirmReset({ token, password });
+        res.status(200).send('password reseted');
     }
 
     async loginUser(req, res) {
-        const { email, senha } = req.body;
+        const { email, password } = req.body;
       
         try {
-            const token = await this.loginOperation.loginUser( email, senha );
+            const token = await this.loginOperation.loginUser( email, password );
             res.json(token);
         } catch (err) {
             console.log('err------', err)

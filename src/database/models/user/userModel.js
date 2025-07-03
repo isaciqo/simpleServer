@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema({
   user_id: String,
   email: String,
   name: String,
-  role: String,
-  senha: String,
+  nick_name: String,
+  password: String,
   schedulesCreated: { type: [schedulesInformationSchema], required: true },
   schedulesJoined: { type: [schedulesInformationSchema], required: true },
   isConfirmed: Boolean

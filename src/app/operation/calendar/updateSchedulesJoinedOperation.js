@@ -1,11 +1,13 @@
 class UpdateSchedulesJoined {
-    constructor({ updateSchedulesJoinedService }) {
+    constructor({ updateSchedulesJoinedService, getCalendarService }) {
       this.updateSchedulesJoinedService = updateSchedulesJoinedService;
+      this.getCalendarService = getCalendarService;
     }
   
-    async updateSchedulesJoined({ id, schedulesJoined }) {
+    async updateSchedulesJoined({ id }) {
       try {
-        return await this.updateSchedulesJoinedService.updateSchedulesJoined({ id, schedulesJoined });
+        const schedulesJoined = await this.getCalendarService.getCalendar({ id });
+        return this.updateSchedulesJoinedService.updateSchedulesJoined({ id, schedulesJoined });
       } catch (error) {
         throw error;
       }

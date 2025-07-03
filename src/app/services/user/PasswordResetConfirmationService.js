@@ -6,7 +6,7 @@ class PasswordResetConfirmation {
         this.JWT_SECRET = process.env.JWT_SECRET;
     }
 
-    async confirmReset({ token, senha }) {
+    async confirmReset({ token, password }) {
         return new Promise((resolve, reject) => {
             jwt.verify(token, this.JWT_SECRET, async (error, decoded) => {
                 if (error) {
@@ -23,7 +23,7 @@ class PasswordResetConfirmation {
                         throw new Error('User not exists');
                     }
 
-                    user.senha = senha;
+                    user.password = password;
                     await user.save();
                     resolve('Password reset successful');
                 } catch (error) {

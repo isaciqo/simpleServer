@@ -13,19 +13,17 @@ class EmailService {
     });
   }
 
-  async sendMail({ email, senha }) {
+  async sendMail({ email, password }) {
     try {
-      const token = jwt.sign({ email, senha }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      const token = jwt.sign({ email, password }, process.env.JWT_SECRET, { expiresIn: '1h' });
       console.log("Sending email to ---------------", email);
 
       const mailOptions = {
         from: process.env.EMAIL_USER,
-        to: 'isaciqo.423sda@gmail.com', // Consider making this dynamic
+        to: 'isaciqo.42@gmail.com', // Consider making this dynamic
         subject: 'Email Confirmation',
         text: `Click on the following link to confirm your email: http://localhost:3030/confirm/${token}`
       };
-
-      console.log("email mailOptions.text ---------------", mailOptions.text);
 
       return new Promise((resolve, reject) => {
         this.transporter.sendMail(mailOptions, (error, info) => {

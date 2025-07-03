@@ -11,14 +11,14 @@ class UserService {
     this.JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
   }
 
-  async createUser({ email, name, role, senha }) {
+  async createUser({ email, name, nick_name, password }) {
     try {
       const newUser = new User({
         user_id: uuidv4(),
         email,
         name,
-        role,
-        senha,
+        nick_name,
+        password,
         isConfirmed: false
       });
       const savedUser = await newUser.save();

@@ -1,7 +1,7 @@
 
 const User = require('../../../database/models/user/userModel');
 
-class getUserService {
+class GetUserByIdService {
     async getUser(user_id) {
         try {
             const user = await User.findOne({ user_id });
@@ -14,4 +14,4 @@ class getUserService {
     }
 }
 
-module.exports = getUserService;
+module.exports = GetUserByIdService;

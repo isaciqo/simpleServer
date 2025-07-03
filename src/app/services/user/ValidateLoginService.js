@@ -2,7 +2,7 @@
 const User = require('../../../database/models/user/userModel');
 
 class ValidateLoginService {
-    async validateUser(email, senha) {
+    async validateUser(email, password) {
         try {
             const user = await User.findOne({ email });
             console.log('returned User------', user);
@@ -15,7 +15,7 @@ class ValidateLoginService {
                 throw new Error('conta ainda não confirmada');
             }
 
-            if (!(user.senha === senha)) {
+            if (!(user.password === password)) {
                 throw new Error('Authentication failed');
             }
 

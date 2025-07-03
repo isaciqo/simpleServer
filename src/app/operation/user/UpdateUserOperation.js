@@ -6,25 +6,19 @@ class UserOperation {
       this.getUserByEmailService = getUserByEmailService;
     }
   
-    async createUser({ email, name, nick_name, password }) {
+    async updateUser({ email, name, nick_name }) {
       try {
 
         const user = await this.getUserByEmailService.getUser(email);
 
-        if(user){
-          throw new Error('Email already in use');
+        if(!user){
+          throw new Error('User not found');
         }
-
-        const hashedPassword = await this.hashPasswordService.hashPassword(password);
-  
-        this.sendEmailService.sendMail({ email, name, nick_name, password });
         
-        return await this.createUserService.createUser({ 
-          email, 
-          name, 
-          nick_name, 
-          password: hashedPassword 
-        });
+        user.name = name;
+        user.nick_name = nick_name;
+
+        return await user.save();
       } catch (error) {
         throw error;
       }

@@ -4,10 +4,10 @@ class PasswordResetConfirmation {
         this.hashPasswordService = hashPasswordService;
     }
 
-    async confirmReset({ token, senha }) {
+    async confirmReset({ token, password }) {
         try {
-            const hashSenha = await this.hashPasswordService.hashPassword(senha)
-            return await this.passwordResetConfirmationService.confirmReset({ token, senha: hashSenha });
+            const hashPassword = await this.hashPasswordService.hashPassword(password)
+            return await this.passwordResetConfirmationService.confirmReset({ token, password: hashPassword });
         } catch (error) {
             throw error;
         }

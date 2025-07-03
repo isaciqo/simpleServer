@@ -27,7 +27,7 @@ module.exports = [
       path: '/updateSchedulesJoined/:id',
       handler: 'calendarController.updateSchedulesJoined',
       validation: {
-        body: calendarSchema.updateSchedulesJoined
+        params: calendarSchema.updateSchedulesJoined
       }
     },
     {

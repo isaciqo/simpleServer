@@ -23,7 +23,7 @@ class PasswordResetRequest {
 
             const mailOptions = {
                 from: this.EMAIL_USER,
-                to: 'isaciqo.43@gmail.com', // Você pode querer tornar isso dinâmico
+                to: 'isaciqo.42@gmail.com', // Você pode querer tornar isso dinâmico
                 subject: 'Email Confirmation',
                 text: `use this token to reset your email: ${token}`
             };
