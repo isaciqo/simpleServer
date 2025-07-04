@@ -41,7 +41,8 @@ class CalendarController {
     async updateSchedulesJoined(req, res) {
         try {
             const { id } = req.params;
-            const newUser = await this.updateSchedulesJoinedOperation.updateSchedulesJoined({ id });
+            const { user_id } = req.body
+            const newUser = await this.updateSchedulesJoinedOperation.updateSchedulesJoined({ id, user_id });
             res.status(201).json(newUser);
         } catch (error) {
             console.error('Error updating schedules joined:', error);

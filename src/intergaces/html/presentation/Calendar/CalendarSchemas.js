@@ -18,4 +18,8 @@ module.exports = () => ({
         id: Joi.string()
     }),
 
+    bodyUpdateSchedulesJoined: Joi.object({
+        user_id: Joi.string()
+    })
+
 });

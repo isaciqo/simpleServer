@@ -1,16 +1,17 @@
 const User = require('../../../database/models/user/userModel');
 
 class UpdateSchedulesJoined {
-  async updateSchedulesJoined({ id, schedulesJoined }) {
+  async updateSchedulesJoined({ user, scheduleJoined }) {
     try {
-        console.log('id---------------', id)
-        const user = await User.findOne({ user_id: id })
-        console.log('schedulesJoined---------------', schedulesJoined)
-      if (!user) {
-        throw new Error('User not found');
+        console.log('id---------------', user)
+
+        console.log('scheduleJoined---------------', scheduleJoined)
+      if ((scheduleJoined.createdBy === user.user_id) 
+        || user.schedulesJoined.find((schedule) => schedule.calendar_id === scheduleJoined.calendar_id)) {
+        throw new Error(`User can't join this schedule`);
       }
 
-      user.schedulesJoined.push(schedulesJoined);
+      user.schedulesJoined.push(scheduleJoined);
 
       const updatedUser = await user.save();
 
