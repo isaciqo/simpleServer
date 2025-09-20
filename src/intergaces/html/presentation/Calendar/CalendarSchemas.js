@@ -20,6 +20,15 @@ module.exports = () => ({
 
     bodyUpdateSchedulesJoined: Joi.object({
         user_id: Joi.string()
-    })
+    }),
+    
+    deleteSchedules: Joi.object({
+        id: Joi.string()
+    }),
+
+    bodyDeleteSchedules: Joi.object({
+        user_id: Joi.string()
+    }),
+       
 
 });

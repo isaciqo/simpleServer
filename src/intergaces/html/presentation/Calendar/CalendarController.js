@@ -1,11 +1,20 @@
 class CalendarController {
-    constructor({ createCalendarOperation, getCalendarOperation, listCalendarOperation, updateCalendarOperation, updateSchedulesCreatedOperation, updateSchedulesJoinedOperation }) {
+    constructor({ 
+        createCalendarOperation,
+        getCalendarOperation,
+        listCalendarOperation,
+        updateCalendarOperation,
+        updateSchedulesCreatedOperation,
+        updateSchedulesJoinedOperation,
+        deleteSchedulesOperation
+     }) {
         this.createCalendarOperation = createCalendarOperation;
         this.getCalendarOperation = getCalendarOperation;
         this.listCalendarOperation = listCalendarOperation;
         this.updateCalendarOperation = updateCalendarOperation;
         this.updateSchedulesCreatedOperation = updateSchedulesCreatedOperation;
         this.updateSchedulesJoinedOperation = updateSchedulesJoinedOperation;
+        this.deleteSchedulesOperation = deleteSchedulesOperation;      
     }
     async createCalendar(req, res) {
         try {
@@ -43,6 +52,18 @@ class CalendarController {
             const { id } = req.params;
             const { user_id } = req.body
             const newUser = await this.updateSchedulesJoinedOperation.updateSchedulesJoined({ id, user_id });
+            res.status(201).json(newUser);
+        } catch (error) {
+            console.error('Error updating schedules joined:', error);
+            res.status(500).json({ error });
+        }
+    }
+
+    async deleteSchedules(req, res) {
+        try {
+            const { id } = req.params;
+            const { user_id } = req.body
+            const newUser = await this.deleteSchedulesOperation.deleteSchedules({ id, user_id });
             res.status(201).json(newUser);
         } catch (error) {
             console.error('Error updating schedules joined:', error);

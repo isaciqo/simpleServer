@@ -32,6 +32,15 @@ module.exports = [
       }
     },
     {
+      method: 'delete',
+      path: '/deleteSchedules/:id',
+      handler: 'calendarController.deleteSchedules',
+      validation: {
+        params: calendarSchema.deleteSchedules,
+        body: calendarSchema.bodyDeleteSchedules
+      }
+    },
+    {
       method: 'get',
       path: '/listCalendar/:createdBy',
       handler: 'calendarController.listCalendar'
